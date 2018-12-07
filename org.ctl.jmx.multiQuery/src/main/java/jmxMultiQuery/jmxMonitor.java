@@ -385,6 +385,21 @@ public class jmxMonitor {
 				}
 			}
 			if(checkData instanceof String) {
+				// Check if the String contains a Long value.
+				Long checkDataLong;
+				try {
+					checkDataLong = Long.parseLong((String) checkData);
+				} catch (RuntimeException ignored) {
+					checkDataLong = null;
+				}
+
+				// If yes, compare the Long value.
+				if (checkDataLong != null) {
+					checkData = checkDataLong;
+					return compare(level);
+				}
+
+				// If no, compare the String value with the level.
 				return checkData.equals(level);
 			}
 			if(checkData instanceof Boolean) {
